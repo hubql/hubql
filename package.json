@@ -39,5 +39,6 @@
         "node": "^20.0.0",
         "pnpm": ">=8"
     },
-    "keywords": []
+    "keywords": [],
+    "packageManager": "pnpm@8.15.6"
 }
