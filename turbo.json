@@ -1,0 +1,47 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "tasks": {
+        "build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "dist/**"
+            ]
+        },
+        "docs#build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "env": [
+                "ANALYZE",
+                "NODE_ENV"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": []
+        },
+        "lint": {
+            "outputs": []
+        },
+        "clean": {
+            "outputs": [],
+            "cache": false
+        },
+        "dev": {
+            "cache": false
+        },
+        "test": {
+            "cache": false
+        },
+        "typecheck": {
+            "dependsOn": [
+                "^typecheck"
+            ],
+            "outputs": [
+                "**/node_modules/.cache/tsbuildinfo.json"
+            ]
+        }
+    }
+}

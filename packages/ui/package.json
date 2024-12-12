@@ -1,0 +1,34 @@
+{
+    "name": "@hubql/ui",
+    "version": "0.0.0",
+    "sideEffects": false,
+    "license": "MIT",
+    "exports": {
+        "./button": {
+            "types": "./src/button.tsx",
+            "import": "./dist/button.mjs",
+            "require": "./dist/button.js"
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "lint": "eslint . --max-warnings 0",
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    },
+    "devDependencies": {
+        "@repo/eslint-config": "workspace:*",
+        "@types/react": "^19.0.1",
+        "@types/react-dom": "^19.0.2",
+        "eslint": "^9.16.0",
+        "@repo/typescript-config": "workspace:*",
+        "tsup": "^8.3.5",
+        "typescript": "^5.7.2"
+    },
+    "dependencies": {
+        "react": "^19.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

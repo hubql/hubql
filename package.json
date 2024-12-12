@@ -1,0 +1,50 @@
+{
+    "name": "hubql",
+    "description": "Your API Platform",
+    "version": "0.0.0",
+    "author": "Hubql GmbH",
+    "license": "Apache-2.0",
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "tests",
+        "e2e-tests",
+        "packages/*"
+    ],
+    "scripts": {
+        "build": "turbo run build",
+        "build:storybook": "turbo run build --filter=storybook",
+        "clean": "turbo run clean --parallel",
+        "dev": "turbo run dev --parallel",
+        "dev:docs": "turbo run dev --filter=docs --parallel",
+        "dev:storybook": "turbo run dev --filter=storybook --parallel",
+        "lint": "turbo run lint",
+        "typecheck": "turbo --continue typecheck",
+        "test:prettier": "prettier -c \"**/*.{ts,tsx,md}\"",
+        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "test:docs": "turbo run test --filter=docs",
+        "test:ui": "turbo run test --filter=ui",
+        "test:e2e": "npm --prefix e2e-tests run test"
+    },
+    "devDependencies": {
+        "eslint": "^9.16.0",
+        "prettier": "^3.4.2",
+        "turbo": "^2.3.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hubql/hubql.git"
+    },
+    "engines": {
+        "node": "^20.0.0"
+    },
+    "keywords": [
+        "postgres",
+        "firebase",
+        "storage",
+        "functions",
+        "database",
+        "auth"
+    ],
+    "packageManager": "pnpm@8.15.6"
+}
