@@ -17,11 +17,11 @@
         "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
     },
     "devDependencies": {
-        "@repo/eslint-config": "workspace:*",
+        "@hubql/eslint-config": "workspace:*",
         "@types/react": "^19.0.1",
         "@types/react-dom": "^19.0.2",
         "eslint": "^9.16.0",
-        "@repo/typescript-config": "workspace:*",
+        "@hubql/typescript-config": "workspace:*",
         "tsup": "^8.3.5",
         "typescript": "^5.7.2"
     },
