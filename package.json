@@ -36,8 +36,8 @@
         "url": "git+https://github.com/hubql/hubql.git"
     },
     "engines": {
-        "node": "^20.0.0"
+        "node": "^20.0.0",
+        "pnpm": ">=8"
     },
-    "keywords": [],
-    "packageManager": "pnpm@>=8"
+    "keywords": []
 }
