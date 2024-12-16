@@ -5,6 +5,8 @@
     "license": "MIT",
     "exports": {
         "./style.css": "./style.css",
+        "./postcss.config": "./postcss.config.mjs",
+        "./tailwind.config": "./tailwind.config.ts",
         "./button": {
             "types": "./src/components/ui/button.tsx",
             "import": "./dist/button.mjs",
