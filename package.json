@@ -27,16 +27,17 @@
         "test:e2e": "npm --prefix e2e-tests run test"
     },
     "devDependencies": {
-        "eslint": "^9.16.0",
-        "prettier": "^3.4.2",
-        "turbo": "^2.3.3"
+        "eslint": "9.16.0",
+        "prettier": "3.4.2",
+        "prettier-plugin-tailwindcss": "0.6.9",
+        "turbo": "2.3.3"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/hubql/hubql.git"
     },
     "engines": {
-        "node": "^20.0.0",
+        "node": ">=18",
         "pnpm": ">=8"
     },
     "keywords": [],
