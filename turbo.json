@@ -11,7 +11,8 @@
                 "^build"
             ],
             "outputs": [
-                "dist/**"
+                "dist/**",
+                "storybook-static/**"
             ]
         },
         "docs#build": {

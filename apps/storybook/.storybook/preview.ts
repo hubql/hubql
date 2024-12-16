@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react'
 import { withThemeByClassName } from '@storybook/addon-themes'
-
-import '../src/index.css' // Add this line
+import '@hubql/ui/style.css'
+// import '../src/index.css' // Add this line
 
 export const decorators = [
   withThemeByClassName({
