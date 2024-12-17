@@ -4,75 +4,226 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* background */
+    --background: var(--background-theme, #000000);
+    --foreground: var(--foreground-theme, #ffffff);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* text */
+    --headings: var(--headings-theme, #ffffff);
+    --text: var(--text-theme, #a3a3a3);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* input */
+    --input-background: var(--input-background-theme, #000);
+    --input-placeholder: var(--input-placeholder-theme, #d4d4d4);
+    --input-border: var(--input-border-theme, transparent);
+    --input-text: var(--input-text-theme, #ffffff);
+    --input-hover: var(--input-hover-background-theme, #171717);
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* brand */
+    --brand: var(--brand-theme, #0a8a39);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    /* button default */
+    --button-background: var(--button-background-theme, #0a8a39);
+    --button-border: var(--button-border-theme, #0a8a39);
+    --button-text: var(--button-text-theme, #ffffff);
+    --button-hover-background: var(--button-hover-background-theme, #16a34a);
+    --button-hover-border: var(--button-hover-border-theme, #06b6d4);
+    --button-hover-text: var(--button-hover-text-theme, #ffffff);
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* button outline */
+    --button-outline-background: var(--button-outline-background-theme, '#000');
+    --button-outline-border: var(--button-outline-border-theme, #404040);
+    --button-outline-text: var(--button-outline-text-theme, #fff);
+    --button-outline-hover-background: var(--button-outline-hover-background-theme, #171717);
+    --button-outline-hover-border: var(--button-outline-hover-border-theme, #0a8a39);
+    --button-outline-hover-text: var(--button-outline-hover-text-theme, #0a8a39);
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* primary */
+    --primary: var(--primary-theme, #0a8a39);
+    --primary-foreground: var(--primary-foreground-theme, #ffffff);
+    --primary-hover: 142, 86%, 25%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* secondary */
+    --secondary: 0 0% 40%;
+    --secondary-foreground: var(--secondary-foreground-theme, #999);
+    --secondary-foreground-muted: var(--secondary-foreground-muted-theme, #262626);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* muted */
+    --muted: var(--muted-theme, #1a1a1a);
+    --muted-foreground: 0 0% 45%;
+    --muted-hover: 0 0% 70%;
 
-    --ring: 215 20.2% 65.1%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --accent: 217.2 32.6% 17.5%;
+    /* accent */
+    --accent: var(--accent-theme, #4cff89);
     --accent-foreground: 210 40% 98%;
 
+    /* destruction */
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
+    --destructive-foreground: 210 40% 98%;
 
-    --ring: 217.2 32.6% 17.5%;
+    /* border */
+    --border: var(--border-theme, #333333);
+
+    /* ring */
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 
-/* @layer base {
+@layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-text;
   }
-} */
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: var(--muted);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--border/80%);
+  }
+  .scrollbar::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+  .scrollbar::-webkit-resizer {
+    background-image: url(/src/assets/images/webkit-resizer.svg);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+  }
+}
+
+.language-json span {
+  letter-spacing: 0px;
+}
+
+.language-json > .token {
+  letter-spacing: 0px;
+}
+
+.token.comment {
+  color: var(--token-comment, #6c757d);
+  font-style: italic;
+}
+
+.token.property {
+  color: var(--token-property, #ffffff);
+}
+
+.token.string {
+  color: var(--token-string, #a3a3a3);
+}
+
+.token.number {
+  color: var(--token-number, #9ca3af);
+}
+
+.token.boolean {
+  color: var(--token-boolean, #56b6c2);
+}
+
+.token.null {
+  color: var(--token-null, #61aeee);
+}
+
+.token.punctuation {
+  color: var(--token-punctuation, #d4d4d4);
+}
+
+.token.operator {
+  color: var(--token-operator, #a7f3d0);
+}
+.request-activity-bar {
+  position: absolute; /* Position it absolutely within the container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--background-theme, --background);
+  overflow: hidden;
+}
+
+.request-activity-bar::before {
+  content: '';
+  position: absolute;
+  left: -100%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    var(--background-theme, --background),
+    var(--brand-theme, --brand),
+    var(--background-theme, --background)
+  );
+  animation: request-activity-progress 1s linear infinite;
+}
+
+@keyframes request-activity-progress {
+  0% {
+    left: -100%;
+  } /* Start off-screen to the left */
+  100% {
+    left: 100%;
+  } /* End off-screen to the right */
+}
+
+.loader {
+  width: 10px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 0.3em solid #999999;
+  animation:
+    l20-1 0.8s infinite linear alternate,
+    l20-2 1.6s infinite linear;
+}
+
+@keyframes l20-1 {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+  }
+  12.5% {
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 100% 100%, 100% 100%);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+  }
+  62.5% {
+    clip-path: polygon(50% 50%, 100% 0, 100% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 50% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 0% 100%);
+  }
+}
+
+@keyframes l20-2 {
+  0% {
+    transform: scaleY(1) rotate(0deg);
+  }
+  49.99% {
+    transform: scaleY(1) rotate(135deg);
+  }
+  50% {
+    transform: scaleY(-1) rotate(0deg);
+  }
+  100% {
+    transform: scaleY(-1) rotate(-135deg);
+  }
+}

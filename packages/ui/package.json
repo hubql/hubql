@@ -1,46 +1,43 @@
 {
-    "name": "@hubql/ui",
-    "version": "0.0.0",
-    "sideEffects": false,
-    "license": "MIT",
-    "exports": {
-        "./style.css": "./style.css",
-        "./postcss.config": "./postcss.config.mjs",
-        "./tailwind.config": "./tailwind.config.ts",
-        "./button": {
-            "types": "./src/components/ui/button.tsx",
-            "import": "./dist/button.mjs",
-            "require": "./dist/button.js"
-        }
-    },
-    "scripts": {
-        "build": "tsup",
-        "dev": "tsup --watch",
-        "lint": "eslint . --max-warnings 0",
-        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
-    },
-    "devDependencies": {
-        "@hubql/eslint-config": "workspace:*",
-        "@types/react": "19.0.1",
-        "@types/react-dom": "19.0.2",
-        "eslint": "^9.16.0",
-        "@hubql/typescript-config": "workspace:*",
-        "tsup": "^8.3.5",
-        "autoprefixer": "10.4.20",
-        "postcss": "8.4.49",
-        "tailwindcss": "3.4.16",
-        "react": "19.0.0",
-        "typescript": "^5.7.2"
-    },
-    "dependencies": {
-        "@radix-ui/react-slot": "1.1.1",
-        "class-variance-authority": "0.7.1",
-        "clsx": "2.1.1",
-        "lucide-react": "0.468.0",
-        "tailwind-merge": "2.5.5",
-        "tailwindcss-animate": "1.0.7"
-    },
-    "publishConfig": {
-        "access": "public"
-    }
+  "name": "@hubql/ui",
+  "version": "0.0.0",
+  "sideEffects": false,
+  "license": "MIT",
+  "exports": {
+    "./style.css": "./style.css",
+    "./postcss.config": "./postcss.config.mjs",
+    "./tailwind.config": "./tailwind.config.ts",
+    "./button": "./src/components/ui/button.tsx",
+    "./lib/utils": "./src/lib/utils.ts"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint . --max-warnings 0",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@hubql/eslint-config": "workspace:*",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.2",
+    "eslint": "^9.16.0",
+    "@hubql/typescript-config": "workspace:*",
+    "tsup": "^8.3.5",
+    "autoprefixer": "10.4.20",
+    "postcss": "8.4.49",
+    "tailwindcss": "3.4.16",
+    "react": "19.0.0",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "1.1.1",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "lucide-react": "0.468.0",
+    "tailwind-merge": "2.5.5",
+    "tailwindcss-animate": "1.0.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
