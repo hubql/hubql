@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "storybook dev -p 6006",
-    "dev:site": "vite dev",
+    "dev:stories": "storybook dev -p 6006",
+    "dev": "vite dev",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
