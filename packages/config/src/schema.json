@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Hubql Config",
+    "description": "Hubql configuration file",
+    "type": "object",
+    "properties": {
+        "version": {
+            "type": "string",
+            "description": "Hubql Version"
+        },
+        "docs": {
+            "type": "array",
+            "description": "List of documentation sites",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Title of the documentation"
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            }
+        }
+    }
+}

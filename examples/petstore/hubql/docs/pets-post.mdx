@@ -1,0 +1,25 @@
+
+# Create a pet
+
+
+
+## Parameters
+None
+
+## Request Body
+```json
+{
+  "required": true,
+  "content": {
+    "application/json": {
+      "schema": {
+        "$ref": "#/components/schemas/NewPet"
+      }
+    }
+  }
+}
+```
+
+## Responses
+- **201**: Pet created successfully
+  

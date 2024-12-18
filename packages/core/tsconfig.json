@@ -1,0 +1,5 @@
+{
+  "extends": "@hubql/typescript-config/base.json",
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+}

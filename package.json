@@ -15,6 +15,7 @@
         "build": "turbo run build",
         "build:storybook": "turbo run build --filter=storybook",
         "clean": "turbo run clean --parallel",
+        "cli": "node packages/cli/dist/index.mjs generate -i ./examples/petstore/openapi.yml -o ./examples/petstore/hubql/docs -c ./examples/petstore/content",
         "dev": "turbo run dev --parallel",
         "dev:docs": "turbo run dev --filter=docs --parallel",
         "dev:storybook": "turbo run dev --filter=storybook --parallel",
@@ -40,6 +41,14 @@
         "node": ">=18",
         "pnpm": ">=8"
     },
-    "keywords": [],
+    "keywords": [
+        "documentation",
+        "mdx",
+        "api",
+        "openapi",
+        "api-docs",
+        "api-reference",
+        "hubql"
+    ],
     "packageManager": "pnpm@8.15.6"
 }
