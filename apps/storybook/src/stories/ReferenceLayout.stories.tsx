@@ -5,7 +5,7 @@ const meta = {
   title: 'ReferenceLayout',
   component: ReferenceLayout,
   parameters: {
-    layout: 'centered',
+    layout: 'full',
   },
 } satisfies Meta<typeof ReferenceLayout>
 

@@ -5,7 +5,7 @@ const meta = {
   title: 'ReferenceMenu',
   component: ReferenceMenu,
   parameters: {
-    layout: 'centered',
+    layout: 'full',
   },
 } satisfies Meta<typeof ReferenceMenu>
 
