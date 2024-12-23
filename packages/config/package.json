@@ -1,0 +1,16 @@
+{
+    "name": "@hubql/config",
+    "version": "0.0.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "devDependencies": {
+        "@hubql/eslint-config": "workspace:*",
+        "@hubql/typescript-config": "workspace:*",
+        "tsup": "8.3.5"
+    },
+    "dependencies": {},
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch"
+    }
+}

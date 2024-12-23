@@ -11,11 +11,15 @@
         "e2e-tests",
         "packages/*"
     ],
+    "hubql": {
+        "config": "./examples/petstore/hubql/hubql.config.ts"
+    },
     "scripts": {
         "build": "turbo run build",
         "build:storybook": "turbo run build --filter=storybook",
         "clean": "turbo run clean --parallel",
-        "cli": "node packages/cli/dist/index.mjs generate -i ./examples/petstore/openapi.yml -o ./examples/petstore/hubql/docs -c ./examples/petstore/content",
+        "cli:generate": "node packages/cli/dist/index.mjs generate -i ./examples/petstore/openapi.yml -o ./examples/petstore/hubql/docs/mdx -c ./examples/petstore/content",
+        "cli:render": "node packages/cli/dist/index.mjs render",
         "dev": "turbo run dev --parallel",
         "dev:docs": "turbo run dev --filter=docs --parallel",
         "dev:storybook": "turbo run dev --filter=storybook --parallel",

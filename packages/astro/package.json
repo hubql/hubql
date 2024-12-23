@@ -1,0 +1,21 @@
+{
+    "name": "@hubql/astro",
+    "version": "0.0.1",
+    "type": "module",
+    "description": "Hubql integration for Astro",
+    "main": "index.js",
+    "license": "MIT",
+    "exports": {
+        ".": "./index.js",
+        "./test.astro": "./test.astro"
+    },
+    "keywords": [
+        "astro-integration"
+    ],
+    "dependencies": {
+        "@astrojs/mdx": "4.0.3",
+        "@astrojs/react": "4.1.2",
+        "@hubql/ui": "workspace:*",
+        "gray-matter": "4.0.3"
+    }
+}

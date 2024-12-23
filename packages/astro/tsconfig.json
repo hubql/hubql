@@ -1,0 +1,9 @@
+{
+  "extends": "@hubql/typescript-config/react-library.json",
+  "compilerOptions": {
+    //"outDir": "dist"
+    "baseUrl": "."
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}
