@@ -6,6 +6,10 @@
     "bin": {
         "hubql": "./bin/hubql.js"
     },
+    "peerDependencies": {
+        "astro": "5.1.1",
+        "@hubql/astro": "workspace:*"
+    },
     "devDependencies": {
         "@hubql/eslint-config": "workspace:*",
         "@types/node": "22.10.2",

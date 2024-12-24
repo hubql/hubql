@@ -3,13 +3,19 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "node ../../packages/cli/dist/index.mjs docs serve",
+    "build": "node ../../packages/cli/dist/index.mjs docs build"
+  },
+  "devDependencies": {
+    "@hubql/typescript-config": "workspace:*"
   },
   "dependencies": {
-    "astro": "^5.1.1",
-    "@hubql/astro": "workspace:*"
+    "@hubql/astro": "workspace:*",
+    "@astrojs/react": "4.1.2",
+    "@astrojs/tailwind": "5.1.4",
+    "astro": "5.1.1",
+    "hubql": "workspace:*",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   }
 }

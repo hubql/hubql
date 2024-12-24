@@ -1,0 +1,39 @@
+---
+//import DefaultLayout from '@hubql/ui/DefaultLayout'
+// import { getCollection } from 'astro:content'
+
+// export const prerender = true
+
+export async function getStaticPaths() {
+  // const collection = await getCollection('docs').map((doc) => ({
+  //   params: { slug: doc.slug },
+  // }))
+  const collection = []
+  if (!collection) return []
+  return collection.map((doc) => ({
+    params: {
+      slug: doc.id,
+    },
+    props: {
+      doc,
+    },
+  }))
+}
+
+// `Astro.params.slug` is passed to determine the file to render
+const slug = Astro.params.slug
+const props = Astro.props
+const params = Astro.params
+console.log(props)
+console.log(params)
+// Dynamically import the corresponding MDX file
+// const Doc = await import(`../../hubql/content/${slug}.mdx`)
+
+// Extract frontmatter from the MDX file
+// const { frontmatter } = Doc
+---
+
+<!-- <DefaultLayout title={''} description={''}> --><!-- <Doc.default /> -->
+<h2>Slug: {slug}</h2>
+<pre>{JSON.stringify(props, null, 2)}</pre>
+<!-- </DefaultLayout> -->

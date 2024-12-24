@@ -21,3 +21,4 @@ tmp
 .vscode
 .idea
 storybook-static
+.astro

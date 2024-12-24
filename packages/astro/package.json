@@ -7,15 +7,24 @@
     "license": "MIT",
     "exports": {
         ".": "./index.js",
-        "./test.astro": "./test.astro"
+        "./test.astro": "./test.astro",
+        "./index.astro": "./index.astro"
     },
     "keywords": [
         "astro-integration"
     ],
+    "devDependencies": {
+        "@hubql/eslint-config": "workspace:*",
+        "@hubql/typescript-config": "workspace:*"
+    },
     "dependencies": {
         "@astrojs/mdx": "4.0.3",
         "@astrojs/react": "4.1.2",
+        "@astrojs/tailwind": "5.1.4",
         "@hubql/ui": "workspace:*",
-        "gray-matter": "4.0.3"
+        "gray-matter": "4.0.3",
+        "react": "19.0.0",
+        "react-dom": "19.0.0",
+        "tailwindcss": "3.4.17"
     }
 }

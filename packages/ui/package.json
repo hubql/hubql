@@ -8,7 +8,7 @@
     "./postcss.config": "./postcss.config.mjs",
     "./tailwind.config": "./tailwind.config.ts",
     "./button": "./src/components/ui/button.tsx",
-    "./layouts/DefaultLayout": "./src/layouts/DefaultLayout.tsx",
+    "./DefaultLayout": "./src/components/ui/DefaultLayout.tsx",
     "./lib/utils": "./src/lib/utils.ts"
   },
   "scripts": {
