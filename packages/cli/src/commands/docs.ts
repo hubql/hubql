@@ -60,31 +60,25 @@ async function docsHandler({
     fs.writeFileSync(
       tailwindConfigPath,
       `
-/** @type {import('tailwindcss').Config} */
+import { default as sharedConfig } from '@hubql/ui/tailwind.config'
+
 export default {
-	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-	theme: {
-		extend: {},
-	},
-	plugins: [],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  ...sharedConfig,
 }
     `
     )
     fs.writeFileSync(
       astroConfigPath,
       `
-import { defineConfig } from 'astro/config';
-import hubql from '@hubql/astro';
+import { defineConfig } from 'astro/config'
+import hubql from '@hubql/astro'
 import react from '@astrojs/react'
 import tailwind from '@astrojs/tailwind'
 
 export default defineConfig({
-integrations: [
-    react(),
-    tailwind(),
-    hubql(),
-],
-});
+  integrations: [react(), tailwind(), hubql()],
+})
     `
     )
 

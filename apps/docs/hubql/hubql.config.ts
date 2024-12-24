@@ -1,4 +1,6 @@
-export default {
+import { defineConfig } from '@hubql/config'
+
+export default defineConfig({
   title: 'Hubql',
   hubs: [
     {
@@ -8,4 +10,4 @@ export default {
       },
     },
   ],
-}
+})

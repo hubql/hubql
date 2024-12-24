@@ -32,9 +32,9 @@ importers:
       '@hubql/astro':
         specifier: workspace:*
         version: link:../../packages/astro
-      '@hubql/ui':
+      '@hubql/config':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:../../packages/config
       '@types/react':
         specifier: ^19.0.2
         version: 19.0.2
@@ -53,6 +53,9 @@ importers:
       react-dom:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
+      tailwindcss:
+        specifier: 3.4.17
+        version: 3.4.17(ts-node@10.9.2(@types/node@22.10.2)(typescript@5.7.2))
     devDependencies:
       '@hubql/typescript-config':
         specifier: workspace:*
@@ -171,27 +174,12 @@ importers:
       '@astrojs/mdx':
         specifier: 4.0.3
         version: 4.0.3(astro@5.1.1(@types/node@22.10.2)(jiti@2.4.2)(rollup@4.28.1)(terser@5.37.0)(typescript@5.7.2)(yaml@2.6.1))
-      '@astrojs/react':
-        specifier: 4.1.2
-        version: 4.1.2(@types/node@22.10.2)(@types/react-dom@19.0.2(@types/react@19.0.2))(@types/react@19.0.2)(jiti@2.4.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.37.0)(yaml@2.6.1)
-      '@astrojs/tailwind':
-        specifier: 5.1.4
-        version: 5.1.4(astro@5.1.1(@types/node@22.10.2)(jiti@2.4.2)(rollup@4.28.1)(terser@5.37.0)(typescript@5.7.2)(yaml@2.6.1))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.10.2)(typescript@5.7.2)))(ts-node@10.9.2(@types/node@22.10.2)(typescript@5.7.2))
       '@hubql/ui':
         specifier: workspace:*
         version: link:../ui
       gray-matter:
         specifier: 4.0.3
         version: 4.0.3
-      react:
-        specifier: 19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: 19.0.0
-        version: 19.0.0(react@19.0.0)
-      tailwindcss:
-        specifier: 3.4.17
-        version: 3.4.17(ts-node@10.9.2(@types/node@22.10.2)(typescript@5.7.2))
     devDependencies:
       '@hubql/eslint-config':
         specifier: workspace:*
