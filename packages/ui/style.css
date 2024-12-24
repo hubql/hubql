@@ -51,7 +51,7 @@
     /* muted */
     --muted: var(--muted-theme, #1a1a1a);
     --muted-foreground: 0 0% 45%;
-    --muted-hover: 0 0% 70%;
+    --muted-hover: 0 0% 20%;
 
     /* accent */
     --accent: var(--accent-theme, #4cff89);
