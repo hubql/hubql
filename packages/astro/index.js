@@ -1,9 +1,7 @@
 import mdx from '@astrojs/mdx'
 import matter from 'gray-matter'
-import tailwind from '@astrojs/tailwind'
 import fs from 'fs'
 import path from 'path'
-import plugin from 'tailwindcss'
 
 export default function hubqlIntegration() {
   return {

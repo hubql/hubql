@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from './sheet'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion'
 
-export const DocsMenu = ({ menu }: { menu: any[] }) => {
+export const DocsMenu = ({ menu = [] }: { menu: any[] }) => {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
 
