@@ -7,7 +7,7 @@
     "license": "MIT",
     "exports": {
         ".": "./index.js",
-        "./test.astro": "./test.astro",
+        "./slug.astro": "./slug.astro",
         "./index.astro": "./index.astro"
     },
     "keywords": [

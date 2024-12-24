@@ -32,6 +32,15 @@ importers:
       '@hubql/astro':
         specifier: workspace:*
         version: link:../../packages/astro
+      '@hubql/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@types/react':
+        specifier: ^19.0.2
+        version: 19.0.2
+      '@types/react-dom':
+        specifier: ^19.0.2
+        version: 19.0.2(@types/react@19.0.2)
       astro:
         specifier: 5.1.1
         version: 5.1.1(@types/node@22.10.2)(jiti@2.4.2)(rollup@4.28.1)(terser@5.37.0)(typescript@5.7.2)(yaml@2.6.1)

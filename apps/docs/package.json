@@ -10,9 +10,12 @@
     "@hubql/typescript-config": "workspace:*"
   },
   "dependencies": {
-    "@hubql/astro": "workspace:*",
     "@astrojs/react": "4.1.2",
     "@astrojs/tailwind": "5.1.4",
+    "@hubql/astro": "workspace:*",
+    "@hubql/ui": "workspace:*",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
     "astro": "5.1.1",
     "hubql": "workspace:*",
     "react": "19.0.0",
