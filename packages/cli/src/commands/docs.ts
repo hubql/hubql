@@ -88,11 +88,11 @@ export default defineConfig({
     fs.writeFileSync(
       path.join(contentDir, 'getting-started-2.mdx'),
       `
-      ---
-      title: "Getting Started 2"
-      ---
-      # Getting Started 2
-      Welcome to the documentation!
+---
+title: "Getting Started 2"
+---
+# Getting Started 2
+Welcome to the documentation!
     `
     )
 

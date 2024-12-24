@@ -1,6 +1,23 @@
 import { OpenAPIOperation } from './types'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeSlug from 'rehype-slug'
+import rehypeStringify from 'rehype-stringify'
 
-export function generateMDX(operation: OpenAPIOperation): string {
+export const generateMDX = async ({
+  operation,
+  content,
+}: {
+  operation: OpenAPIOperation
+  content: string
+}): Promise<string> => {
+  const processor = unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypeSlug)
+    .use(rehypeStringify)
+  const processedContent = await processor.processSync(content).toString()
   return `
 # ${operation.summary}
 
@@ -16,5 +33,8 @@ ${operation.requestBody ? '```json\n' + JSON.stringify(operation.requestBody, nu
 ${Object.entries(operation.responses)
   .map(([status, res]) => `- **${status}**: ${res.description || ''}`)
   .join('\n')}
-  `
+
+
+${processedContent}
+`
 }

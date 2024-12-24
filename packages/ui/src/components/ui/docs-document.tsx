@@ -2,7 +2,7 @@ import { cn } from '@hubql/ui/lib/utils'
 import React, { FC } from 'react'
 import { DocsOutline } from './docs-outline'
 import { DocsMarkdown } from './docs-markdown'
-import { useProcessedHtml } from '../hooks/useProcessedHtml '
+
 import { useExtractedHeadings } from '../hooks/useExtractedHeadings '
 
 interface DocsDocumentProps {
@@ -13,8 +13,7 @@ interface DocsDocumentProps {
 }
 
 export const DocsDocument: FC<DocsDocumentProps> = ({ content: { frontmatter, content } }) => {
-  const transformedHtml = useProcessedHtml(content)
-  const headings = useExtractedHeadings(transformedHtml)
+  const headings = useExtractedHeadings(content)
 
   const getMaxWidthClass = (headingsLength: number, outline: boolean) => {
     return headingsLength === 0 || !outline ? '!max-w-5xl' : ''

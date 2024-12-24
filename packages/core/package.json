@@ -10,8 +10,15 @@
         "test:watch": "vitest"
     },
     "dependencies": {
-        "yaml": "^2.1.1",
-        "fs-extra": "^11.1.0"
+        "rehype-parse": "9.0.1",
+        "rehype-slug": "6.0.0",
+        "rehype-stringify": "10.0.1",
+        "remark": "15.0.1",
+        "remark-parse": "11.0.0",
+        "remark-rehype": "11.1.1",
+        "unified": "11.0.5",
+        "yaml": "2.1.1",
+        "fs-extra": "11.1.0"
     },
     "devDependencies": {
         "@hubql/eslint-config": "workspace:*",
@@ -19,7 +26,7 @@
         "@hubql/typescript-config": "workspace:*",
         "@types/fs-extra": "11.0.4",
         "tsup": "8.3.5",
-        "typescript": "^5.0.0",
-        "vitest": "^0.34.0"
+        "typescript": "5.7.2",
+        "vitest": "0.34.0"
     }
 }
