@@ -368,7 +368,7 @@ export const createHubqlStore = (hubId: string) =>
             currentOperationId: id,
           }))
         },
-        setResponse: (response: Response) => {
+        setResponse: (response: Response | null) => {
           return set((state) => ({ ...state, response }))
         },
         data: null,

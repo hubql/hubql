@@ -25,6 +25,7 @@
         "@types/node": "22.10.2",
         "@hubql/typescript-config": "workspace:*",
         "@types/fs-extra": "11.0.4",
+        "@types/yaml": "1.9.7",
         "tsup": "8.3.5",
         "typescript": "5.7.2",
         "vitest": "0.34.0"

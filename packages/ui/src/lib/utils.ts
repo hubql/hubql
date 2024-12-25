@@ -316,7 +316,3 @@ const appendQueryParams = ({
 
   return adjustedUrl
 }
-
-const resolveReference = ({ ref, spec }: { ref: string; spec: OpenAPIV3_1.Document }) => {
-  return
-}

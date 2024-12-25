@@ -1,9 +1,4 @@
 import { OpenAPIOperation } from './types'
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import rehypeSlug from 'rehype-slug'
-import rehypeStringify from 'rehype-stringify'
 
 export const generateMDX = async ({
   operation,
@@ -12,12 +7,19 @@ export const generateMDX = async ({
   operation: OpenAPIOperation
   content: string
 }): Promise<string> => {
+  const { unified } = await import('unified')
+  const remarkParse = (await import('remark-parse')).default
+  const remarkRehype = (await import('remark-rehype')).default
+  const rehypeSlug = (await import('rehype-slug')).default
+  const rehypeStringify = (await import('rehype-stringify')).default
+
   const processor = unified()
     .use(remarkParse)
     .use(remarkRehype)
     .use(rehypeSlug)
     .use(rehypeStringify)
   const processedContent = await processor.processSync(content).toString()
+  // ... rest of the function
   return `
 # ${operation.summary}
 
