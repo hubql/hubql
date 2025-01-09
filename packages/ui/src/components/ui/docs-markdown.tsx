@@ -1,9 +1,23 @@
 import { cn } from '@hubql/ui/lib/utils'
 import React from 'react'
-import ReactMarkdown from 'react-markdown'
-import rehypeSlug from 'rehype-slug'
+import { compile } from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
+import { MDXProvider } from '@mdx-js/react'
+import { Button } from './button'
 
-export const DocsMarkdown = ({ frontmatter, content }: { frontmatter: any; content: any }) => {
+export const DocsMarkdown = async ({
+  frontmatter,
+  content,
+}: {
+  frontmatter: any
+  content: any
+}) => {
+  const compiledMDX = await compile(content, { outputFormat: 'function-body' })
+  const Content = new Function(String(compiledMDX)).bind({ React, ...runtime })
+  const defaultComponents = {
+    Button: (props: any) => <Button />,
+  }
+
   return (
     <div className={cn('col-span-12 md:col-span-8 px-4 lg:px-8')}>
       <div className="max-w-full w-full pb-24 prose prose-headings:text-white prose-p:text-neutral-400 prose-a:text-white prose-a:underline prose-a:underline-offset-4 prose-p:text-md prose-p:font-normal prose-li:text-md prose-li:text-neutral-800 dark:prose-li:text-neutral-300  prose-h3:text-2xl">
@@ -15,9 +29,9 @@ export const DocsMarkdown = ({ frontmatter, content }: { frontmatter: any; conte
           </div>
 
           <div className="mt-4 w-full text-lg text-neutral-400">
-            <ReactMarkdown className="w-full mt-2" rehypePlugins={[rehypeSlug]}>
-              {content}
-            </ReactMarkdown>
+            <MDXProvider components={defaultComponents}>
+              <Content />
+            </MDXProvider>
           </div>
         </div>
       </div>

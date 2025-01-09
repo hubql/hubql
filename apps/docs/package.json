@@ -15,6 +15,7 @@
     "tailwindcss": "3.4.17",
     "@hubql/astro": "workspace:*",
     "@hubql/config": "workspace:*",
+    "@hubql/ui": "workspace:*",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "astro": "5.1.1",

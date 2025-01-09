@@ -7,7 +7,7 @@ export default function hubqlIntegration() {
   return {
     name: '@hubql/astro',
     hooks: {
-      'astro:config:setup': ({ config, injectRoute, updateConfig }) => {
+      'astro:config:setup': async ({ config, injectRoute, updateConfig }) => {
         // if (!options.contentDir) {
         //   throw new Error('Missing required contentDir')
         // }
@@ -28,19 +28,25 @@ export default function hubqlIntegration() {
         })
         const contentDir = './hubql/content'
         const docs = fs.readdirSync(path.resolve(process.cwd(), contentDir))
+        console.log('docs', docs)
         for (const doc of docs) {
+          console.log('doc', doc)
           if (!doc.endsWith('.mdx')) continue
           const filePath = path.resolve(contentDir, doc)
           const fileName = path.basename(filePath, '.mdx')
           const fileContent = fs.readFileSync(filePath, 'utf8')
-          const { data, content } = matter(fileContent)
+          const { data: frontmatter, content } = matter(fileContent)
+          const compiledMDX = await compile(content, { outputFormat: 'function-body' })
+
+          console.log(frontmatter)
+          console.log(content)
           injectRoute({
             pattern: `[...slug]`,
             entrypoint: '@hubql/astro/slug.astro',
             prerender: false,
             data: {
-              ...data,
-              content,
+              frontmatter,
+              content: String(compiledMDX),
             },
           })
         }

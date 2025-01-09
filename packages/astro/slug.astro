@@ -1,39 +1,45 @@
 ---
-//import DefaultLayout from '@hubql/ui/DefaultLayout'
-// import { getCollection } from 'astro:content'
+import { Docs } from '@hubql/ui/docs'
+// import { promises as fs } from 'fs'
+// import path from 'path'
 
-export const prerender = true
+// export const prerender = true
 
-export async function getStaticPaths() {
-  // const collection = await getCollection('docs').map((doc) => ({
-  //   params: { slug: doc.slug },
-  // }))
-  const collection = []
-  if (!collection) return []
-  return collection.map((doc) => ({
-    params: {
-      slug: doc.id,
-    },
-    props: {
-      doc,
-    },
-  }))
-}
+// export async function getStaticPaths() {
+//   // const matches = import.meta.glob('../../hubql/content/*.mdx', { eager: true })
+//   const matches = await import.meta.glob('../../**/hubql/content/*.mdx', { eager: true })
+//   // https://docs.astro.build/en/guides/imports/#markdown-files
 
-// `Astro.params.slug` is passed to determine the file to render
-const slug = Astro.params.slug
+//   const paths = await Promise.all(
+//     Object.entries(matches).map(async ([filePath, doc]: [string, any]) => {
+//       const slug = path.basename(filePath).replace('.mdx', '')
+
+//       // Read raw content using fs
+//       const rawContent = await fs.readFile(path.resolve(filePath), 'utf-8')
+
+//       return {
+//         params: { slug },
+//         props: { doc, rawContent },
+//       }
+//     })
+//   )
+
+//   return paths
+// }
+
 const props = Astro.props
-const params = Astro.params
 console.log(props)
-console.log(params)
-// Dynamically import the corresponding MDX file
-// const Doc = await import(`../../hubql/content/${slug}.mdx`)
-
-// Extract frontmatter from the MDX file
-// const { frontmatter } = Doc
+const { frontmatter, content } = props
+const menu = []
 ---
 
-<!-- <DefaultLayout title={''} description={''}> --><!-- <Doc.default /> -->
-<h2>Slug: {slug}</h2>
-<pre>{JSON.stringify(props, null, 2)}</pre>
-<!-- </DefaultLayout> -->
+<h1>Slug: {frontmatter?.title}</h1>
+<!-- <Docs
+  content={{
+    frontmatter,
+    content,
+  }}
+  menu={menu}
+>
+  <div></div>
+</Docs> -->
