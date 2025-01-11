@@ -1,29 +1,58 @@
 import chokidar from 'chokidar';
-import WebSocket from 'ws';
-import { execa } from 'execa';
+import { execaCommand } from 'execa';
 import { Command } from 'commander';
 import { loadConfig } from '../utils/loadConfig';
-import path from 'path';
-import { spawn } from 'child_process';
 
-const startStudio = async () => {
+const checkLocalStudio = async (): Promise<boolean> => {
   try {
-    console.log('Starting Studio...');
-    const studioPath = path.join(process.cwd(), 'node_modules', '@hubql/studio');
-    const studioProcess = spawn('pnpm', ['dev'], {
-      cwd: path.resolve(process.cwd(), 'packages/studio'),
+    // Try to fetch from local Studio
+    const response = await fetch('http://localhost:13140/');
+    return response.ok;
+  } catch (err) {
+    return false;
+  }
+};
+
+const startStudio = async (config: { useLocal?: boolean }) => {
+  try {
+    // Check if Studio is running locally
+    const isLocalRunning = await checkLocalStudio();
+    
+    if (config.useLocal) {
+      if (!isLocalRunning) {
+        throw new Error('Local Studio is required but not running on port 3000');
+      }
+      console.log('Using local Studio on port 13140');
+      return;
+    }
+
+    if (isLocalRunning) {
+      console.log('Studio is already running locally on port 13140');
+      return;
+    }
+
+    // If not running locally and not forced to use local, use Docker
+    console.log('Starting Studio in Docker...');
+    const imageTag = 'hubql/studio:latest';
+    
+    console.log('Pulling latest Studio version...');
+    await execaCommand(`docker pull ${imageTag}`, {
       stdio: 'inherit'
     });
-    await new Promise<void>((resolve, reject) => {
-      studioProcess.on('exit', (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(new Error(`Studio process exited with code ${code}`));
-        }
-      });
-      studioProcess.on('error', reject);
-    });
+
+    const dockerProcess = execaCommand(
+      'docker run -it --rm ' +
+      '-p 13140:3000 ' +  // Studio UI
+      '-p 13142:5133 ' +  // Electric sync port
+      '-v $(pwd):/app ' +
+      imageTag,
+      {
+        stdio: 'inherit',
+        shell: true
+      }
+    );
+
+    await dockerProcess;
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error('Error starting Studio:', err.message);
@@ -33,17 +62,28 @@ const startStudio = async () => {
   }
 };
 
-const startFileWatcher = (contentPath: string) => {
+const startFileWatcher = async (contentPath: string) => {
+  // Initialize Electric client
+  const config = {
+    url: 'postgresql://postgres:postgres@localhost:13142/hubql',
+    schema: 'public'
+  };
+  
+  // const electric = await electrify(config);
+  
+  // Watch for file changes
   const watcher = chokidar.watch(contentPath, { persistent: true });
 
-  const wss = new WebSocket.Server({ port: 4001 });
-
-  wss.on('connection', (socket: WebSocket) => {
-    console.log('Studio connected to WebSocket server.');
-    watcher.on('all', (event: string, path: string) => {
-      console.log(`File ${event}: ${path}`);
-      socket.send(JSON.stringify({ event, path }));
-    });
+  watcher.on('all', async (event: string, path: string) => {
+    console.log(`File ${event}: ${path}`);
+    
+    // Instead of WebSocket, sync through Electric
+    // await electric.db.files.upsert({
+    //   path,
+    //   event,
+    //   timestamp: new Date().toISOString(),
+    //   content: event === 'unlink' ? null : await fs.readFile(path, 'utf-8')
+    // });
   });
 
   console.log(`File watcher running on ${contentPath}...`);
@@ -51,10 +91,9 @@ const startFileWatcher = (contentPath: string) => {
 
 export const startCommand = new Command('start')
   .description('Run the Hubql Studio')
-//   .option('-i, --input <path>', 'Input directory containing MDX files')
-//   .option('-o, --output <path>', 'Output directory for rendered HTML files')
+  .option('--local', 'Use local Docker image instead of published version')
   .action(async (options) => {
-    const { input, output } = options;
+    const { input, output, local } = options;
     // Load user-defined config
     const { config, configPath } = await loadConfig();
 
@@ -62,8 +101,8 @@ export const startCommand = new Command('start')
       throw new Error('No hubql.config.ts found');
     }
 
-    const contentPath = input || config.input || './content';
+    const contentPath = input || config.input || './docs/content';
     
-    await startStudio();
+    await startStudio({ useLocal: local });
     startFileWatcher(contentPath);
   });

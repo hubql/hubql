@@ -1,0 +1,53 @@
+version: "3.3"
+name: "hubql"
+
+networks:
+  app_network:
+    external: false
+
+services:
+  # studio:
+  #   image: hubql/studio
+  #   networks:
+  #     - app_network    
+  #   ports:
+  #     - 13140:13140
+
+  # sync:
+  #   image: hubql/sync
+  #   networks:
+  #     - app_network    
+  #   ports:
+  #     - 13141:13141
+
+  database:
+    container_name: database
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    networks:
+      - app_network      
+    ports:
+      - ${HUBQL_POSTGRES_PORT}:5432
+    tmpfs:
+      - /var/lib/postgresql/data
+      - /tmp
+    command:
+      - -c
+      - listen_addresses=*
+      - -c
+      - wal_level=logical
+
+  electric:
+    container_name: electric
+    image: electricsql/electric
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@database:5432/postgres?sslmode=disable
+    networks:
+      - app_network      
+    ports:
+      - ${HUBQL_ELECTRIC_PORT}:3000
+    depends_on:
+      - database

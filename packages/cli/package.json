@@ -20,7 +20,7 @@
     "dependencies": {
         "chokidar": "4.0.3",
         "ws": "^8.16.0",
-        "execa": "9.5.2",        
+        "execa": "9.5.2",                
         "@hubql/studio": "workspace:*",
         "@hubql/core": "workspace:*",
         "@mdx-js/mdx": "3.1.0",

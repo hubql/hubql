@@ -10,9 +10,9 @@ const ajv = new Ajv()
 const schema = {
   type: 'object',
   properties: {
-    title: { type: 'string' },
+    workspaces: { type: 'array' },
   },
-  required: ['title'],
+  required: ['workspaces'],
 }
 
 const validate = ajv.compile(schema)
@@ -66,9 +66,10 @@ export async function loadConfig(configPath?: string): Promise<any> {
     // Default paths
     const defaultPaths = [
       path.resolve(process.cwd(), 'hubql', 'config.ts'),
-      path.resolve(process.cwd(), 'config', 'hubql.config.ts'),
+      path.resolve(process.cwd(), 'hubql', 'hubql.config.ts'),
       path.resolve(process.cwd(), 'package.json'),
     ]
+    
 
     for (const defaultPath of defaultPaths) {
       if (await fs.pathExists(defaultPath)) {
@@ -90,7 +91,7 @@ export async function loadConfig(configPath?: string): Promise<any> {
           }
           continue
         }
-        const config = await importPath(defaultPath)
+        const config = await importPath(defaultPath)        
         return { config: validateConfig(config.default), configPath: defaultPath }
       }
     }
@@ -103,8 +104,7 @@ export async function loadConfig(configPath?: string): Promise<any> {
   }
 }
 
-function validateConfig(config: any) {
-  console.log('validateConfig', config)
+function validateConfig(config: any) {  
   if (!validate(config)) {
     throw new Error('Configuration file did not pass validation.')
   }

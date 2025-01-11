@@ -1,38 +1,39 @@
 {
     "name": "hubql",
-    "description": "Your API Platform",
+    "description": "Open-source documentation platform",
     "version": "0.0.0",
-    "author": "Hubql GmbH",
+    "author": "Hubql",
     "license": "Apache-2.0",
     "private": true,
     "workspaces": [
         "apps/*",
-        "tests",
-        "e2e-tests",
+        "internal/*",
+        "tests/*",
+        "e2e-tests/*",
         "packages/*"
-    ],
-    "hubql": {
-        "config": "./examples/petstore/hubql/hubql.config.ts"
-    },
+    ],    
     "scripts": {
         "build": "turbo run build",
         "build:storybook": "turbo run build --filter=storybook",
         "clean": "turbo run clean --parallel",
         "cli:generate": "node packages/cli/dist/index.mjs generate -i ./examples/petstore/openapi.yml -o ./examples/petstore/hubql/docs/mdx -c ./examples/petstore/content",
         "cli:render": "node packages/cli/dist/index.mjs render",
-        "cli:start": "node packages/cli/dist/index.mjs start",
+        "cli:start": "node packages/cli/dist/index.mjs start --local",
         "dev": "turbo run dev --parallel",
         "dev:docs": "turbo run dev --filter=docs --parallel",
         "dev:storybook": "turbo run dev --filter=storybook --parallel",
+        "dev:sync": "turbo run dev --filter=@hubql/sync --parallel",
+        "dev:studio": "turbo run dev --filter=@hubql/studio --parallel",
         "lint": "turbo run lint",
         "typecheck": "turbo --continue typecheck",
         "test:prettier": "prettier -c \"**/*.{ts,tsx,md}\"",
         "format": "prettier --write \"**/*.{ts,tsx,md}\"",
         "test:docs": "turbo run test --filter=docs",
         "test:ui": "turbo run test --filter=ui",
-        "test:e2e": "npm --prefix e2e-tests run test"
+        "test:e2e": "npm --prefix e2e-tests run test"        
     },
     "devDependencies": {
+        "@hubql/config": "workspace:*",
         "eslint": "9.16.0",
         "prettier": "3.4.2",
         "prettier-plugin-tailwindcss": "0.6.9",
@@ -48,6 +49,9 @@
     },
     "keywords": [
         "documentation",
+        "docs",
+        "docs-as-code",
+        "markdown",
         "mdx",
         "api",
         "openapi",

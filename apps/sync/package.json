@@ -1,0 +1,16 @@
+{
+  "name": "@hubql/sync",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "elysia": "1.2.10",
+    "@sinclair/typebox": "0.34.13"
+  },
+  "devDependencies": {
+    "bun-types": "1.1.43"
+  },
+  "module": "src/index.js"
+}
