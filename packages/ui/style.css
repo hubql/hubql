@@ -62,7 +62,7 @@
     --destructive-foreground: 210 40% 98%;
 
     /* border */
-    --border: var(--border-theme, #333333);
+    --border: var(--border-theme, #27272a);
 
     /* ring */
     --ring: 212.7 26.8% 83.9%;

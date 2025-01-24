@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar'
 import { fallback, zodValidator } from '@tanstack/zod-adapter'
 import { z } from 'zod'
 import { Layout } from '@hubql/ui/layout'
+import { Toaster } from '@hubql/ui/toaster'
 
 const sidebarSearchSchema = z.object({
   q: fallback(z.string().optional(), ``),
@@ -22,6 +23,7 @@ export const Route = createRootRoute({
         // @ts-expect-error Devtools type issue
         <TanStackRouterDevtools />
       )}
+      <Toaster />
     </Layout>
   ),
 })
