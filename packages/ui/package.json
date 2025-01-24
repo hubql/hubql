@@ -25,7 +25,11 @@
     "./accordion": "./src/components/ui/accordion.tsx",
     "./sheet": "./src/components/ui/sheet.tsx",
     "./docs": "./src/components/ui/docs.tsx",
-    "./docs-document": "./src/components/ui/docs-document.tsx"
+    "./docs-document": "./src/components/ui/docs-document.tsx",
+    "./DefaultLayout": "./src/components/ui/DefaultLayout.tsx",
+    "./layout": "./src/components/ui/layout.tsx",
+    "./app-switch-menu": "./src/components/ui/app-switch-menu.tsx",
+    "./hubql-logo": "./src/components/ui/hubql-logo.tsx"
   },
   "scripts": {
     "build": "tsup",
