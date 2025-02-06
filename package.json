@@ -11,15 +11,18 @@
         "tests/*",
         "e2e-tests/*",
         "packages/*"
-    ],    
+    ],
     "scripts": {
         "build": "turbo run build",
         "build:storybook": "turbo run build --filter=storybook",
         "clean": "turbo run clean --parallel",
+        "dev:cli": "turbo run dev --filter=hubql --parallel",
         "cli:generate": "node packages/cli/dist/index.mjs generate -i ./examples/petstore/openapi.yml -o ./examples/petstore/hubql/docs/mdx -c ./examples/petstore/content",
         "cli:render": "node packages/cli/dist/index.mjs render",
         "cli:start": "node packages/cli/dist/index.mjs start --local",
-        "dev": "turbo run dev --parallel",
+        "dev": "turbo run dev --parallel --filter=!storybook --filter=!docs && pnpm cli:start",
+        "dev:petstore": "node packages/cli/dist/index.mjs docs serve --workspaceId hubql-petstore",
+        "dev:intercom": "turbo run dev --filter=hubql-intercom --parallel",
         "dev:docs": "turbo run dev --filter=docs --parallel",
         "dev:storybook": "turbo run dev --filter=storybook --parallel",
         "dev:sync": "turbo run dev --filter=@hubql/sync --parallel",
@@ -30,7 +33,7 @@
         "format": "prettier --write \"**/*.{ts,tsx,md}\"",
         "test:docs": "turbo run test --filter=docs",
         "test:ui": "turbo run test --filter=ui",
-        "test:e2e": "npm --prefix e2e-tests run test"        
+        "test:e2e": "npm --prefix e2e-tests run test"
     },
     "devDependencies": {
         "@hubql/config": "workspace:*",

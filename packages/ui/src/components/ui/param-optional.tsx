@@ -1,4 +1,3 @@
-import React from 'react'
 import { AccordionContent, AccordionTrigger } from './accordion'
 import { ParamAttribute } from './param-attributes'
 import { AccordionItem } from './accordion'

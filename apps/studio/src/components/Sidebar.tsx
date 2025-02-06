@@ -39,9 +39,8 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-background border-r border-border transform transition-transform duration-300 ease-in-out lg:translate-x-0 p-2 ${
-        isOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}
+      className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-background border-r border-border transform transition-transform duration-300 ease-in-out lg:translate-x-0 p-2 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
     >
       <div className="h-full flex flex-col">
         <div>
@@ -58,6 +57,7 @@ export default function Sidebar() {
               type="text"
               placeholder="Search files..."
               value={search.q}
+              // @ts-ignore
               onChange={(e) => navigate({ search: (prev) => ({ q: e.target.value }) })}
               className="w-full pl-10 pr-4 bg-background py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
             />

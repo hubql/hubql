@@ -1,5 +1,4 @@
-import React from 'react'
-import { Parameter, ParameterType } from '@hubql/store'
+import { Parameter, ParameterType } from '@hubql/core'
 
 const getType = (schema: any): string => {
   if (schema.type) return schema.type

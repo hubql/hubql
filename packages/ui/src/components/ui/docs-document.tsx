@@ -1,5 +1,5 @@
 import { cn } from '@hubql/ui/lib/utils'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { DocsOutline } from './docs-outline'
 import { DocsMarkdown } from './docs-markdown'
 

@@ -2,6 +2,7 @@ import { execSync } from 'child_process'
 import path from 'path'
 import fs from 'fs-extra'
 import { Command } from 'commander'
+import { loadConfig } from '../utils/loadConfig'
 
 export const docsCommand = new Command('docs').description('Manage documentation')
 
@@ -14,9 +15,12 @@ docsCommand
 
 docsCommand
   .command('serve')
+  .alias('s')
+  .alias('dev')
   .description('Serve documentation locally')
-  .action(async () => {
-    await docsHandler({ init: false, serve: true, build: false })
+  .option('-w, --workspaceId <id>', 'Workspace ID to serve documentation for')
+  .action(async (options) => {
+    await docsHandler({ init: false, serve: true, build: false, workspaceId: options.workspaceId })
   })
 
 docsCommand
@@ -30,13 +34,26 @@ async function docsHandler({
   init = false,
   serve = false,
   build = false,
+  workspaceId,
 }: {
   init: boolean
   serve: boolean
   build: boolean
+  workspaceId?: string
 }) {
-  const projectRoot = process.cwd()
-  const hubqlDir = path.join(projectRoot, 'hubql')
+  const projectRoot = path.join(process.cwd(), '.hubql')
+  const { config, configPath } = await loadConfig()
+
+  // Find workspace
+  const workspace = workspaceId
+    ? config.workspaces.find((w: any) => w.id === workspaceId)
+    : config.workspaces[0]
+
+
+  if (!workspace) {
+    console.error(`Workspace ${workspaceId} not found`)
+    return
+  }
   const astroConfigPath = path.join(projectRoot, 'astro.config.mjs')
   const tailwindConfigPath = path.join(projectRoot, 'tailwind.config.mjs')
 
@@ -83,18 +100,18 @@ export default defineConfig({
     )
 
     // Generate default structure
-    const contentDir = path.join(hubqlDir, 'content')
-    fs.ensureDirSync(contentDir)
-    fs.writeFileSync(
-      path.join(contentDir, 'getting-started-2.mdx'),
-      `
----
-title: "Getting Started 2"
----
-# Getting Started 2
-Welcome to the documentation!
-    `
-    )
+    //     const contentDir = path.join(hubqlDir, 'content')
+    //     fs.ensureDirSync(contentDir)
+    //     fs.writeFileSync(
+    //       path.join(contentDir, 'getting-started-2.mdx'),
+    //       `
+    // ---
+    // title: "Getting Started 2"
+    // ---
+    // # Getting Started 2
+    // Welcome to the documentation!
+    //     `
+    //     )
 
     console.log('Astro project initialized at ./hubql')
   }
@@ -113,8 +130,52 @@ Welcome to the documentation!
   // Serve the Astro project
   if (serve) {
     console.log('Starting Astro development server...')
-    execSync('npx astro dev', {
-      cwd: hubqlDir,
+    console.log(`Serving documentation for workspace: ${workspace.name} from ${projectRoot}`)
+
+    // Create package.json manually first
+    const packageJsonPath = path.join(projectRoot, 'package.json')
+    if (!fs.existsSync(packageJsonPath)) {
+      fs.writeFileSync(
+        packageJsonPath,
+        JSON.stringify(
+          {
+            name: 'hubql-docs',
+            private: true,
+            type: 'module',
+            version: '0.0.0',
+            "devDependencies": {
+              "@hubql/typescript-config": "workspace:*"
+            },
+            "dependencies": {
+              "@astrojs/react": "4.1.2",
+              "@astrojs/tailwind": "5.1.4",
+              "tailwindcss": "3.4.17",
+              "@hubql/astro": "workspace:*",
+              "@hubql/config": "workspace:*",
+              "@hubql/ui": "workspace:*",
+              "@types/react": "^19.0.2",
+              "@types/react-dom": "^19.0.2",
+              "astro": "5.1.1",
+              "hubql": "workspace:*",
+              "react": "19.0.0",
+              "react-dom": "19.0.0"
+            }
+          },
+          null,
+          2
+        )
+      )
+    }
+
+    // Install dependencies
+    execSync(`pnpm i astro@latest`, {
+      cwd: projectRoot,
+      stdio: 'inherit',
+    })
+
+    // Then run the dev server
+    execSync(`HUBQL_WORKSPACE_ID=${workspace.id} npx astro dev`, {
+      cwd: projectRoot,
       stdio: 'inherit',
     })
     return
@@ -123,7 +184,7 @@ Welcome to the documentation!
   // Build the Astro project
   if (build) {
     console.log('Building static documentation...')
-    execSync('npx astro build', { cwd: hubqlDir, stdio: 'inherit' })
+    execSync('npx astro build', { cwd: projectRoot, stdio: 'inherit' })
     return
   }
 

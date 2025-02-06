@@ -1,10 +1,10 @@
 {
   "extends": "@hubql/typescript-config/react-library.json",
   "compilerOptions": {
-    "jsx": "react",
     //"outDir": "dist"
     "baseUrl": ".",
     "paths": {
+      "react": ["./node_modules/@types/react"],
       "@hubql/ui/*": ["./src/*"],
       "@hubql/ui/components/ui*": ["./src/components/ui/*"]
     }

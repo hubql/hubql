@@ -1,13 +1,50 @@
 import { defineConfig } from '@hubql/config'
 
-export default defineConfig({  
-  ide: [
-    "Cursor"
-  ],
+export default defineConfig({
+  version: "0.0.1",
   workspaces: [
+    {
+      id: "hubql-intercom",
+      name: "Intercom",
+      base: './examples/intercom',
+      grid: {
+        rules: []
+      },
+      hubs: [
+        {
+          name: 'Intercom API',
+          type: 'api',
+          openapi: './openapi.yml',
+        }
+      ]
+    },
+    {
+      id: "hubql-petstore",
+      name: "Petstore",
+      base: './examples/petstore',
+      grid: {
+        rules: []
+      },
+      hubs: [
+        {
+          name: 'Petstore API',
+          type: 'api',
+          openapi: './openapi.yml',
+        }
+      ]
+    },
     {
       id: 'hubql-workspace',
       name: 'Hubql',
+      base: './',
+      grid: {
+        rules: [
+          {
+            input: 'docs/llm/**/*.md',
+            output: '.cursorrules',
+          }
+        ]
+      },
       hubs: [
         {
           name: 'Hubql CLI',
@@ -25,9 +62,9 @@ export default defineConfig({
           name: 'Hubql Docs',
           type: 'docs',
           content: {
-            dir: '../docs/content',
+            base: 'docs/content',
           },
-        }      
+        }
         // Example API Reference
         // {
         //   title: 'Hubql API Reference',

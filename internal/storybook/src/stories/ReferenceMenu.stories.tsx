@@ -26,6 +26,11 @@ export const Default: Story = {
             summary: 'summary',
             operationId: 'operationId',
             tags: ['tag'],
+            responses: {
+              '200': {
+                description: 'description',
+              },
+            },
           },
         },
       },

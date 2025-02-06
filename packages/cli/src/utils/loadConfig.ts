@@ -65,11 +65,20 @@ export async function loadConfig(configPath?: string): Promise<any> {
 
     // Default paths
     const defaultPaths = [
+
+
+      //root
       path.resolve(process.cwd(), 'hubql', 'config.ts'),
       path.resolve(process.cwd(), 'hubql', 'hubql.config.ts'),
       path.resolve(process.cwd(), 'package.json'),
+
+      //local
+      path.resolve(process.cwd(), '../..', 'hubql', 'config.ts'),
+      path.resolve(process.cwd(), '../..', 'hubql', 'hubql.config.ts'),
+      path.resolve(process.cwd(), '../..', 'package.json'),
+
     ]
-    
+
 
     for (const defaultPath of defaultPaths) {
       if (await fs.pathExists(defaultPath)) {
@@ -91,7 +100,7 @@ export async function loadConfig(configPath?: string): Promise<any> {
           }
           continue
         }
-        const config = await importPath(defaultPath)        
+        const config = await importPath(defaultPath)
         return { config: validateConfig(config.default), configPath: defaultPath }
       }
     }
@@ -104,7 +113,7 @@ export async function loadConfig(configPath?: string): Promise<any> {
   }
 }
 
-function validateConfig(config: any) {  
+function validateConfig(config: any) {
   if (!validate(config)) {
     throw new Error('Configuration file did not pass validation.')
   }

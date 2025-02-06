@@ -1,12 +1,9 @@
-// import { useHubqlStore } from '@hubql/store'
+import { OpenAPISpec } from '@hubql/core';
 import { Code } from './code'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
-import React from 'react'
 
-export const ResponseExample = ({ response, methodInfo }: { response: any; methodInfo: any }) => {
-  //   const currentAPI = useHubqlStore((state) => state.currentAPI)
-  const currentAPI = ''
 
+export const ResponseExample = ({ methodInfo, currentAPI }: { response: any, methodInfo: any, currentAPI: OpenAPISpec }) => {
   const resolveProperty = (property: any): any => {
     if (property.example) return property.example
     if (property.default) return property.default

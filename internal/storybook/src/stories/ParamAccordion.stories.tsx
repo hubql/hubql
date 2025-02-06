@@ -21,7 +21,7 @@ export const Default: Story = {
         description: 'description',
         required: true,
         schema: {
-          type: 'path',
+          type: 'string',
         },
       },
       {
@@ -30,7 +30,7 @@ export const Default: Story = {
         description: 'description',
         required: true,
         schema: {
-          type: 'path',
+          type: 'string',
         },
       },
       {
@@ -39,7 +39,7 @@ export const Default: Story = {
         description: 'description',
         required: false,
         schema: {
-          type: 'path',
+          type: 'string',
         },
       },
     ],

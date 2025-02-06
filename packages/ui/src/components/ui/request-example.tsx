@@ -1,8 +1,7 @@
-import { fetchToCurl } from '../../lib/utils'
+import { fetchToCurl } from '@hubql/core'
 import { Code } from './code'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
 import { useEffect, useState } from 'react'
-import React from 'react'
 
 export const RequestExample = ({
   method,

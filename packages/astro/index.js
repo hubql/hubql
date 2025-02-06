@@ -21,36 +21,75 @@ export default function hubqlIntegration() {
             },
           },
         })
+
+        const contentDir = '../../docs/content'
+        const contentPath = path.resolve(process.cwd(), contentDir)
+        const docs = fs.readdirSync(contentPath)
+        const menu = []
+        const docPages = []
+        for (const doc of docs) {
+          // if (!doc.endsWith('.mdx')) continue
+          if (doc.endsWith('.mdx')) {
+            const filePath = path.resolve(contentDir, doc)
+            const fileName = path.basename(filePath, '.mdx')
+            const fileContent = fs.readFileSync(filePath, 'utf8')
+            console.log('fileName', fileName)
+            const { data: frontmatter, content } = matter(fileContent)
+
+            docPages.push({
+              slug: fileName,
+              frontmatter,
+              content,
+            })
+          } else {
+            const subDocs = fs.readdirSync(path.resolve(contentDir, doc))
+            for (const subDoc of subDocs) {
+              const subDocPath = path.resolve(contentDir, doc, subDoc)
+              console.log('subDocPath', subDocPath)
+
+              const subDocContent = fs.readFileSync(subDocPath, 'utf8')
+              const { data: frontmatter, content } = matter(subDocContent)
+              docPages.push({
+                slug: subDoc,
+                frontmatter,
+                content,
+              })
+            }
+          }
+        }
+
+        for (const doc of docPages) {
+          const compiledMDX = await compile(doc.content, { outputFormat: 'function-body' })
+          menu.push({
+            category: doc.frontmatter.title,
+            categoryUrl: doc.slug,
+            items: [
+              // { title: 'Overview', filename: 'overview' }
+            ],
+          })
+          injectRoute({
+            pattern: `/${doc.slug}`,
+            entrypoint: '@hubql/astro/slug.astro',
+            prerender: false,
+            data: {
+              frontmatter: doc.frontmatter,
+              content: doc.content,
+            },
+          })
+        }
+        const indexFile = path.basename(contentPath, 'page.mdx')
+        const indexFileContent = fs.readFileSync(indexFile, 'utf8')
+        const { data: frontmatter, content } = matter(indexFileContent)
+
         injectRoute({
           pattern: '/',
           // prerender: false,
           entrypoint: '@hubql/astro/index.astro',
-          data: {},
+          data: {
+            content,
+            menu,
+          },
         })
-        const contentDir = './hubql/content'
-        const docs = fs.readdirSync(path.resolve(process.cwd(), contentDir))
-        console.log('docs', docs)
-        for (const doc of docs) {
-          console.log('doc', doc)
-          if (!doc.endsWith('.mdx')) continue
-          const filePath = path.resolve(contentDir, doc)
-          const fileName = path.basename(filePath, '.mdx')
-          const fileContent = fs.readFileSync(filePath, 'utf8')
-          const { data: frontmatter, content } = matter(fileContent)
-          const compiledMDX = await compile(content, { outputFormat: 'function-body' })
-
-          console.log(frontmatter)
-          console.log(content)
-          injectRoute({
-            pattern: `[...slug]`,
-            entrypoint: '@hubql/astro/slug.astro',
-            prerender: false,
-            data: {
-              frontmatter,
-              content: String(compiledMDX),
-            },
-          })
-        }
       },
     },
   }

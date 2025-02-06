@@ -11,26 +11,27 @@ services:
   #   networks:
   #     - app_network
   #   ports:
-  #     - 13140:13140
+  #     - ${HUBQL_POSTGRES_PORT:-13140}:5432
 
   # sync:
   #   image: hubql/sync
   #   networks:
   #     - app_network
   #   ports:
-  #     - 13141:13141
+  #     - ${HUBQL_POSTGRES_PORT:-13141}:3232
+    
 
   database:
     container_name: database
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${HUBQL_POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${HUBQL_POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${HUBQL_POSTGRES_PASSWORD:-password}
     networks:
       - app_network
     ports:
-      - ${HUBQL_POSTGRES_PORT}:5432
+      - ${HUBQL_POSTGRES_PORT:-13142}:5432
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     tmpfs:
@@ -50,6 +51,6 @@ services:
     networks:
       - app_network
     ports:
-      - ${HUBQL_ELECTRIC_PORT}:3000
+      - ${HUBQL_ELECTRIC_PORT:-13143}:3000
     depends_on:
       - database

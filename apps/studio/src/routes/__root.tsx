@@ -16,11 +16,9 @@ export const Route = createRootRoute({
     <Layout appSwitchMenu={true}>
       <Sidebar />
       <div className="flex-1">
-        {/* @ts-expect-error Outlet type issue */}
         <Outlet />
       </div>
       {import.meta.env.DEV && (
-        // @ts-expect-error Devtools type issue
         <TanStackRouterDevtools />
       )}
       <Checklist />

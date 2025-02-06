@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import { useParams, useRouter } from "@tanstack/react-router";
 import * as Y from "yjs";
-import { createTiptapExtensions } from "../../lib/tiptap";
+import { createTiptapExtensions } from "../lib/tiptap";
 import { TitleInput } from "./TitleInput";
 import { Awareness } from "y-protocols/awareness";
-import { ElectricProvider } from "../../y-electric";
+import { ElectricProvider } from "../y-electric";
 // import { ConservativeAwarenessCleanup } from "../../y-electric/awareness-cleanup"
-import { useFiles, updateFile } from "../../lib/files";
+import * as random from "lib0/random";
+import { useFiles, updateFile } from "../lib/files";
 import "./editor.css";
 
 // Map to cache ElectricProvider instances per fileId
@@ -28,10 +29,10 @@ function getProvider(fileId: string) {
         awareness,
       },
     );
-    awareness.on('change', ({ added, updated, removed }) => {
+    awareness.on('change', ({ }) => {
       // Get all current user states
       const states = awareness.getStates()
-      console.log(`Current users in file ${fileId}:`, Array.from(states.values()))
+      console.log(`Current users in note ${fileId}:`, Array.from(states.values()))
     })
 
     // Create cleanup-er
@@ -75,7 +76,7 @@ function ActualEditor({ fileId }: { fileId: string }) {
   return (
     <div className="flex-1 flex flex-col ml-10 lg:ml-0 border-l lg:border-0 border-grey bg-white">
       <TitleInput
-        title={file.title}
+        title={file.title ?? ''}
         onChange={handleTitleChange}
         error={file.error}
       />

@@ -1,6 +1,6 @@
 import { cn } from '@hubql/ui/lib/utils'
 import React from 'react'
-import { compile } from '@mdx-js/mdx'
+import { evaluate } from '@mdx-js/mdx'
 import * as runtime from 'react/jsx-runtime'
 import { MDXProvider } from '@mdx-js/react'
 import { Button } from './button'
@@ -12,10 +12,13 @@ export const DocsMarkdown = async ({
   frontmatter: any
   content: any
 }) => {
-  const compiledMDX = await compile(content, { outputFormat: 'function-body' })
-  const Content = new Function(String(compiledMDX)).bind({ React, ...runtime })
+  const { default: Content } = await evaluate(content, {
+    ...runtime,
+    Fragment: React.Fragment,
+  })
+
   const defaultComponents = {
-    Button: (props: any) => <Button />,
+    Button: (props: any) => <Button {...props} />,
   }
 
   return (

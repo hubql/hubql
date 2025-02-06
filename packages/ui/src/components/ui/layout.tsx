@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { AppSwitchMenu } from './app-switch-menu'
 import Footer from './footer'
 import Header from './header'

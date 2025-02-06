@@ -17,7 +17,7 @@ const startStudio = async (config: { useLocal?: boolean }) => {
   try {
     // Check if Studio is running locally
     const isLocalRunning = await checkLocalStudio();
-    
+
     if (config.useLocal) {
       if (!isLocalRunning) {
         throw new Error('Local Studio is required but not running on port 3000');
@@ -34,7 +34,7 @@ const startStudio = async (config: { useLocal?: boolean }) => {
     // If not running locally and not forced to use local, use Docker
     console.log('Starting Studio in Docker...');
     const imageTag = 'hubql/studio:latest';
-    
+
     console.log('Pulling latest Studio version...');
     await execaCommand(`docker pull ${imageTag}`, {
       stdio: 'inherit'
@@ -68,15 +68,15 @@ const startFileWatcher = async (contentPath: string) => {
     url: 'postgresql://postgres:postgres@localhost:13142/hubql',
     schema: 'public'
   };
-  
+
   // const electric = await electrify(config);
-  
+
   // Watch for file changes
   const watcher = chokidar.watch(contentPath, { persistent: true });
 
   watcher.on('all', async (event: string, path: string) => {
     console.log(`File ${event}: ${path}`);
-    
+
     // Instead of WebSocket, sync through Electric
     // await electric.db.files.upsert({
     //   path,
@@ -90,8 +90,11 @@ const startFileWatcher = async (contentPath: string) => {
 };
 
 export const startCommand = new Command('start')
+  .alias('s')
+  .alias('dev')
   .description('Run the Hubql Studio')
   .option('--local', 'Use local Docker image instead of published version')
+  .argument('[workspaceId]', 'Workspace ID to serve documentation for')
   .action(async (options) => {
     const { input, output, local } = options;
     // Load user-defined config
@@ -102,7 +105,7 @@ export const startCommand = new Command('start')
     }
 
     const contentPath = input || config.input || './docs/content';
-    
+
     await startStudio({ useLocal: local });
     startFileWatcher(contentPath);
   });

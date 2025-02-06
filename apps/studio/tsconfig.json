@@ -1,12 +1,12 @@
 {
   "extends": "@hubql/typescript-config/base.json",
-  "exclude": [
-    "dist"
-  ],  
+  "exclude": ["dist"],
   "compilerOptions": {
+    "paths": {
+      "react": ["./node_modules/@types/react"]
+    },
     "outDir": "./dist",
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }
 }
-

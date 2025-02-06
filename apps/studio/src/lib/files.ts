@@ -1,9 +1,10 @@
 import { proxy, useSnapshot, subscribe } from 'valtio'
-import { useShape, getShapeStream, Row } from '@electric-sql/react'
+import { useShape, getShapeStream } from '@electric-sql/react'
 import { useMemo } from 'react'
 import { matchStream, matchBy } from './stream-utils'
+import { Row } from '@electric-sql/client'
 
-interface File extends Row {
+interface File {
   id: number
   title: string
   created_at: string
@@ -20,9 +21,8 @@ const optimisticStore = proxy({
 })
 
 const useFiles = () => {
-
   const url = new URL("/shape-proxy/files", import.meta.env.VITE_API_URL).toString()
-  const { data: electricFiles, isLoading, error: electricError } = useShape<File>({
+  const { data: electricFiles, isLoading, error: electricError } = useShape<Row<File>>({
     url: url,
   })
 
@@ -30,18 +30,18 @@ const useFiles = () => {
 
   const combinedFiles = useMemo(() => {
     if (isLoading || !electricFiles) return []
-    
+
     return electricFiles.map(file => ({
       ...file,
-      ...(updates.get(file.id)?.value || {}),
-      error: errors.get(file.id)
+      ...(updates.get(file.id as number)?.value || {}),
+      error: errors.get(file.id as number)
     }))
   }, [electricFiles, updates, errors, isLoading])
 
-  return { 
-    files: combinedFiles, 
-    isLoading, 
-    error: electricError 
+  return {
+    files: combinedFiles,
+    isLoading,
+    error: electricError
   }
 }
 
@@ -49,9 +49,9 @@ const updateFile = async (id: number, update: Partial<File>) => {
   // Create new Maps to trigger reactivity
   optimisticStore.updates = new Map(optimisticStore.updates)
   optimisticStore.errors = new Map(optimisticStore.errors)
-  
+
   optimisticStore.errors.delete(id)
-  
+
   // Store update with timestamp
   const timestamp = Date.now()
   optimisticStore.updates.set(id, {
@@ -74,9 +74,9 @@ const updateFile = async (id: number, update: Partial<File>) => {
         }),
         // Wait for the change to be streamed back from Electric
         matchStream(
-          getShapeStream<File>({url: new URL("/shape-proxy/files", import.meta.env.VITE_API_URL).toString()}),
+          getShapeStream<Row<File>>({ url: new URL("/shape-proxy/files", import.meta.env.VITE_API_URL).toString() }),
           ['update'],
-          matchBy('title', update.title)
+          matchBy('title', update.title!)
         )
       ])
 

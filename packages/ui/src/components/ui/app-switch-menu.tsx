@@ -1,6 +1,4 @@
-import React from 'react'
 import { HubqlLogo } from './hubql-logo'
-import { Link } from 'react-router-dom'
 import { ArrowUpDown, BookMarked, Grid, Network } from 'lucide-react'
 
 export const AppSwitchMenu = () => {

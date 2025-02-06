@@ -1,13 +1,12 @@
-import React from 'react'
 import { ReferenceMenu } from './reference-menu'
-import { OpenApiSource } from '@hubql/store'
+import { OpenAPISpec } from '@hubql/core'
 
 export const ReferenceLayout = ({
   children,
   currentAPI,
 }: {
   children: any
-  currentAPI: OpenApiSource | null
+  currentAPI: OpenAPISpec | null
 }) => {
   return (
     <div className="relative min-h-screen">
