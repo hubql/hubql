@@ -1,53 +1,58 @@
-import {
-    isChangeMessage,
-    type ShapeStreamInterface,
-    type ChangeMessage,
-    type GetExtensions,
-    type Operation,
-    type Row,
-    type Value,
-  } from '@electric-sql/client'
-  
-  export function matchStream<T extends Row<unknown>>(
-    stream: ShapeStreamInterface<T>,
-    operations: Array<Operation>,
-    matchFn: (message: ChangeMessage<T>) => boolean,
-    timeout = 60000 // ms
-  ): Promise<ChangeMessage<T>> {
-    return new Promise<ChangeMessage<T>>((resolve, reject) => {
-      const unsubscribe: () => void = stream.subscribe((messages) => {
-        const message = messages.filter(isChangeMessage).find((message) => {
-          const operation = message.headers.operation
-  
-          return operations.includes(operation) && matchFn(message)
-        })
-  
-        if (message) {
-          return finish(message)
-        }
-      })
-  
-      const timeoutId = setTimeout(() => {
-        const msg = `matchStream timed out after ${timeout}ms`
-  
-        console.error(msg)
-  
-        reject(msg)
-      }, timeout)
-  
-      function finish(message: ChangeMessage<T>) {
-        clearTimeout(timeoutId)
-  
-        unsubscribe()
-  
-        return resolve(message)
-      }
-    })
+import StarterKit from "@tiptap/starter-kit";
+import Collaboration from "@tiptap/extension-collaboration";
+import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
+import { Extensions } from "@tiptap/react";
+import { ElectricProvider } from "../y-electric";
+
+// Colors that have good contrast with black text (WCAG AA compliant)
+const accessibleColors = [
+  '#FFE5B4', // Peach
+  '#E6F3FF', // Light Blue
+  '#E8FFE8', // Mint Green
+  '#FFF0F5', // Lavender
+  '#FFFACD', // Lemon Chiffon
+  '#F0FFF0', // Honeydew
+  '#F5F5DC', // Beige
+  '#F0F8FF', // Alice Blue
+];
+
+interface UserInfo {
+  name: string;
+  color: string;
+}
+
+function getOrCreateUserInfo(): UserInfo {
+  const storedInfo = localStorage.getItem('electric-notes-user');
+  if (storedInfo) {
+    return JSON.parse(storedInfo);
   }
-  
-  export function matchBy<T extends Row<unknown>>(
-    column: string,
-    value: Value<GetExtensions<T>>
-  ): (message: ChangeMessage<T>) => boolean {
-    return (message) => message.value[column] === value
-  }
+
+  const newInfo = {
+    name: `User ${Math.floor(Math.random() * 100)}`,
+    color: accessibleColors[Math.floor(Math.random() * accessibleColors.length)]
+  };
+
+  localStorage.setItem('electric-notes-user', JSON.stringify(newInfo));
+  return newInfo;
+}
+
+export function createTiptapExtensions(provider: ElectricProvider): Extensions {
+  const userInfo = getOrCreateUserInfo();
+
+  return [
+    StarterKit.configure({
+      history: false, // Important: Disable history as we're using collaboration
+    }),
+    Collaboration.extend().configure({
+      //@ts-expect-error
+      document: provider.doc,
+    }),
+    CollaborationCursor.extend().configure({
+      provider,
+      user: {
+        name: userInfo.name,
+        color: userInfo.color,
+      },
+    }),
+  ];
+}

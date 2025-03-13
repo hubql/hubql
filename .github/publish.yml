@@ -1,0 +1,40 @@
+name: Publish Alpha Packages
+
+on:
+  push:
+    tags:
+      - 'alpha-*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.15.6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Set alpha version
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/alpha-}
+          pnpm -r exec npm version $TAG_NAME --no-git-tag-version
+
+      - name: Publish packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm -r publish --tag alpha --no-git-checks --access public

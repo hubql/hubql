@@ -1,5 +1,4 @@
 import { CheckIcon, CopyIcon } from 'lucide-react'
-import React from 'react'
 import { useState } from 'react'
 export const CodeInfoBar = ({ code, language }: { code: string; language: string }) => {
   const [copied, setCopied] = useState(false)

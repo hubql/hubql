@@ -43,12 +43,12 @@ export class ConservativeAwarenessCleanup {
     this.coordination = this.doc.getMap('cleanup-coordination')
     this.intervals = new Set()
     this.options = { ...DEFAULT_OPTIONS, ...options }
-    
+
     // Set up debug logging
-    this.debug = this.options.debug 
-      ? (message: string, data?: Record<string, unknown>) => 
-          console.log(`[YjsCleanup ${this.doc.clientID}]`, message, data)
-      : () => {}
+    this.debug = this.options.debug
+      ? (message: string, data?: Record<string, unknown>) =>
+        console.log(`[YjsCleanup ${this.doc.clientID}]`, message, data)
+      : () => { }
 
     this.debug('Initializing cleanup system')
     this.setupTracking()
@@ -68,12 +68,15 @@ export class ConservativeAwarenessCleanup {
     }, this.options.leaderTimeout / 5))
 
     // Track awareness updates
-    this.awareness.on('update', ({ added, updated }) => {
+    this.awareness.on('update', ({ added, updated }: {
+      added: number[]
+      updated: number[]
+    }) => {
       const now = Date.now()
       const changedClients = [...added, ...updated]
-      
+
       this.debug('Awareness update', { changedClients })
-      
+
       for (const clientId of changedClients) {
         this.clientActivity.set(String(clientId), {
           timestamp: now,
@@ -120,12 +123,12 @@ export class ConservativeAwarenessCleanup {
   private tryBecomeLeader(): void {
     const now = Date.now()
     const leader = this.coordination.get('leader')
-    
+
     if (!leader || now - leader.timestamp > this.options.leaderTimeout) {
       this.debug('Becoming leader', {
         previousLeader: leader
       })
-      
+
       this.coordination.set('leader', {
         clientId: this.doc.clientID,
         timestamp: now
@@ -164,9 +167,8 @@ export class ConservativeAwarenessCleanup {
 
       // Remove old clients
       awarenessProtocol.removeAwarenessStates(this.awareness, Array.from(clientsToRemove), 'old client cleanup')
-      
       // Clean up activity tracking
-      for (const clientId of clientsToRemove) {
+      for (const clientId of Array.from(clientsToRemove)) {
         this.clientActivity.delete(String(clientId))
       }
     }
@@ -184,14 +186,14 @@ export class ConservativeAwarenessCleanup {
   private async conservativeCleanup(): Promise<void> {
     const now = Date.now()
     const states = this.awareness.getStates()
-    
+
     // First phase: mark potential stale clients
     const potentialStaleClients = new Set<number>()
 
     // Check both awareness states and activity tracking
     states.forEach((state, clientId) => {
       const activity = this.getClientActivity(clientId)
-      
+
       if (!activity || now - activity.timestamp > this.options.staleTimeout) {
         this.debug('Marking client as potentially stale', {
           clientId,
@@ -214,16 +216,16 @@ export class ConservativeAwarenessCleanup {
       this.debug('Waiting for verification delay before cleanup', {
         potentialStaleClients: Array.from(potentialStaleClients)
       })
-      
+
       // Wait to see if any marked clients become active
       await new Promise(resolve => setTimeout(resolve, this.options.verificationDelay))
 
       // Second phase: verify and cleanup
       for (const clientId of Array.from(potentialStaleClients)) {
         const activity = this.getClientActivity(clientId)
-        
-        if (!activity || 
-            now - activity.timestamp > this.options.staleTimeout + this.options.verificationDelay) {
+
+        if (!activity ||
+          now - activity.timestamp > this.options.staleTimeout + this.options.verificationDelay) {
           // Double check we're still leader before cleanup
           if (this.isLeader()) {
             this.debug('Cleaning up stale client', {
@@ -247,7 +249,7 @@ export class ConservativeAwarenessCleanup {
 
   public destroy(): void {
     this.debug('Destroying cleanup system')
-    
+
     // Clear all intervals
     for (const interval of Array.from(this.intervals)) {
       clearInterval(interval)

@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const DocsOutline = ({ headings }: { headings: any }) => {
   return (
     headings.length > 0 && (

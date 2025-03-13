@@ -17,28 +17,32 @@ export const Default: Story = {
     methodInfo: {
       responses: {
         '200': {
-          description: 'A paged array of pets',
+          description: 'string',
           content: {
             'application/json': {
               schema: {
-                $ref: '#/components/schemas/Pets',
-              },
-            },
-          },
-        },
-      },
+                $ref: 'string'
+              }
+            }
+          }
+        }
+      }
     },
     response: {
       status: 200,
       headers: {
-        'Content-Type': 'application/json',
-        Vary: 'Accept-Encoding',
+        'Content-Type': 'string',
+        Vary: 'string'
       },
-      body: {
-        id: 1,
-        name: 'name',
-        tag: 'tag',
-      },
+      body: {}
     },
+    currentAPI: {
+      openapi: '3.0.0',
+      info: {
+        title: 'Example API',
+        version: '1.0.0'
+      },
+      paths: {}
+    }
   },
 }

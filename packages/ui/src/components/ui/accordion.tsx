@@ -6,7 +6,7 @@ import * as React from 'react'
 const Accordion = AccordionPrimitive.Root
 
 const AccordionItem = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
+  React.ComponentRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ className, ...props }, ref) => (
   <AccordionPrimitive.Item ref={ref} className={cn(className)} {...props} />
@@ -17,7 +17,7 @@ type AccordionTriggerProps = React.ComponentPropsWithoutRef<typeof AccordionPrim
   chevron?: boolean
 }
 const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  React.ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
 >(({ className, chevron = true, children, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">

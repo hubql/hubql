@@ -1,23 +1,26 @@
-import { OpenApiSource, useHubqlStore } from '@hubql/store'
+import { OpenAPISpec } from '@hubql/core'
 // import { NavLink } from 'react-router-dom'
 import { Accordion, AccordionItem, AccordionContent, AccordionTrigger } from './accordion'
 import { Method } from './method'
 // import { useHubqlSession } from '@hubql/store/session'
 
-import React from 'react'
 
-export const ReferenceMenu = ({ currentAPI }: { currentAPI: OpenApiSource | null }) => {
+
+export const ReferenceMenu = ({ currentAPI }: { currentAPI: OpenAPISpec | null }) => {
   const hubId = ''
   // Group paths by their tags
-  function groupByTags(paths) {
+  function groupByTags(paths: any) {
     const grouped = {}
     for (const path in paths || {}) {
       for (const method in paths[path]) {
         const tags = paths[path][method].tags || []
         for (const tag of tags) {
+          //@ts-expect-error
           if (!grouped[tag]) {
+            //@ts-expect-error
             grouped[tag] = []
           }
+          //@ts-expect-error
           grouped[tag].push({
             path,
             methods: [
@@ -45,25 +48,27 @@ export const ReferenceMenu = ({ currentAPI }: { currentAPI: OpenApiSource | null
                 <span className="capitalize"> {tag} </span>
               </AccordionTrigger>
               <AccordionContent className="w-full">
-                {groupedPaths[tag].map((pathObj: any, index: any) => (
-                  <div key={pathObj.path + index}>
-                    {pathObj.methods.map((method: any) => (
-                      <a
-                        title={method?.summary}
-                        href={`${hubId ? '/' + hubId : ''}/reference/${method?.operationId}`}
-                        key={`${pathObj.path}-${method.method}`}
-                        className="text-white flex flex-row gap-2 pl-1 pr-4 py-1 hover:bg-muted rounded-md items-start"
-                      >
-                        <Method variant={method.method} size={'xs'}>
-                          {method.method.toUpperCase()}
-                        </Method>
-                        <p className="text-secondary-foreground aria-[current=page]:!text-blue-600 truncate">
-                          {method.operationId}
-                        </p>
-                      </a>
-                    ))}
-                  </div>
-                ))}
+                {
+                  //@ts-expect-error
+                  groupedPaths[tag].map((pathObj: any, index: any) => (
+                    <div key={pathObj.path + index}>
+                      {pathObj.methods.map((method: any) => (
+                        <a
+                          title={method?.summary}
+                          href={`${hubId ? '/' + hubId : ''}/reference/${method?.operationId}`}
+                          key={`${pathObj.path}-${method.method}`}
+                          className="text-white flex flex-row gap-2 pl-1 pr-4 py-1 hover:bg-muted rounded-md items-start"
+                        >
+                          <Method variant={method.method} size={'xs'}>
+                            {method.method.toUpperCase()}
+                          </Method>
+                          <p className="text-secondary-foreground aria-[current=page]:!text-blue-600 truncate">
+                            {method.operationId}
+                          </p>
+                        </a>
+                      ))}
+                    </div>
+                  ))}
               </AccordionContent>
             </AccordionItem>
           ))}

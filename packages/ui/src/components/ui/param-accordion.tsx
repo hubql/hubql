@@ -1,8 +1,7 @@
-import React from 'react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion'
 import { ParamAttribute } from './param-attributes'
 import { ParamOptional } from './param-optional'
-import { Parameter } from '@hubql/store'
+import { Parameter } from '@hubql/core'
 
 type ParamAccordionProps = {
   params: Parameter[]

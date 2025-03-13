@@ -1,11 +1,9 @@
-import React from 'react'
 import { DocsMenu } from './docs-menu'
 import { DocsDocument } from './docs-document'
 
 export const Docs = ({
   menu,
   content,
-  children,
 }: {
   menu: any[]
   content: {

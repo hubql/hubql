@@ -1,6 +1,5 @@
-{    
+{
     "$schema": "https://turborepo.org/schema.json",
-       
     "tasks": {
         "setup": {
             "cache": false,
@@ -16,6 +15,16 @@
                 "dist/**",
                 "storybook-static/**"
             ]
+        },
+        "docs#dev": {
+            "persistent": true,
+            "dependsOn": [
+                "hubql#build"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": []
         },
         "docs#build": {
             "dependsOn": [

@@ -1,5 +1,5 @@
 import { BookOpen, ChevronDown, Search } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from './sheet'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion'
 
