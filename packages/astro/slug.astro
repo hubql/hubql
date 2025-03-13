@@ -1,0 +1,45 @@
+---
+import { Docs } from '@hubql/ui/docs'
+// import { promises as fs } from 'fs'
+// import path from 'path'
+
+// export const prerender = true
+
+// export async function getStaticPaths() {
+//   // const matches = import.meta.glob('../../hubql/content/*.mdx', { eager: true })
+//   const matches = await import.meta.glob('../../**/hubql/content/*.mdx', { eager: true })
+//   // https://docs.astro.build/en/guides/imports/#markdown-files
+
+//   const paths = await Promise.all(
+//     Object.entries(matches).map(async ([filePath, doc]: [string, any]) => {
+//       const slug = path.basename(filePath).replace('.mdx', '')
+
+//       // Read raw content using fs
+//       const rawContent = await fs.readFile(path.resolve(filePath), 'utf-8')
+
+//       return {
+//         params: { slug },
+//         props: { doc, rawContent },
+//       }
+//     })
+//   )
+
+//   return paths
+// }
+
+const props = Astro.props
+console.log(props)
+const { frontmatter, content } = props
+const menu = []
+---
+
+<h1>Slug: {frontmatter?.title}</h1>
+<!-- <Docs
+  content={{
+    frontmatter,
+    content,
+  }}
+  menu={menu}
+>
+  <div></div>
+</Docs> -->

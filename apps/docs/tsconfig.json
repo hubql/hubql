@@ -1,0 +1,10 @@
+{
+  "extends": "@hubql/typescript-config/base.json",
+  "exclude": [
+    "dist"
+  ],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
+}

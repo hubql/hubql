@@ -1,0 +1,65 @@
+{
+    "$schema": "https://turborepo.org/schema.json",
+    "tasks": {
+        "setup": {
+            "cache": false,
+            "dependsOn": [
+                "^build"
+            ]
+        },
+        "build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "dist/**",
+                "storybook-static/**"
+            ]
+        },
+        "docs#dev": {
+            "persistent": true,
+            "dependsOn": [
+                "hubql#build"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": []
+        },
+        "docs#build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "env": [
+                "ANALYZE",
+                "NODE_ENV"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": []
+        },
+        "lint": {
+            "outputs": []
+        },
+        "clean": {
+            "outputs": [],
+            "cache": false
+        },
+        "dev": {
+            "persistent": true,
+            "cache": false
+        },
+        "test": {
+            "cache": false
+        },
+        "typecheck": {
+            "dependsOn": [
+                "^typecheck"
+            ],
+            "outputs": [
+                "**/node_modules/.cache/tsbuildinfo.json"
+            ]
+        }
+    }
+}

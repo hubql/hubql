@@ -1,0 +1,27 @@
+{
+  "name": "docs",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "dev:old": "node ../../packages/cli/dist/index.mjs docs serve -w hubql-workspace",
+    "build": "node ../../packages/cli/dist/index.mjs docs build"
+  },
+  "devDependencies": {
+    "@hubql/typescript-config": "workspace:*"
+  },
+  "dependencies": {
+    "@astrojs/react": "4.1.2",
+    "@astrojs/tailwind": "5.1.4",
+    "tailwindcss": "3.4.17",
+    "@hubql/astro": "workspace:*",
+    "@hubql/config": "workspace:*",
+    "@hubql/ui": "workspace:*",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "astro": "5.1.1",
+    "hubql": "workspace:*",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  }
+}

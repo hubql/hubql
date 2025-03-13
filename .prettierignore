@@ -1,0 +1,3 @@
+node_modules
+apps/**/out
+apps/**/.turbo

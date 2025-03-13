@@ -1,0 +1,11 @@
+---
+import { Docs } from '@hubql/ui/docs'
+import { Button } from '@hubql/ui/button'
+export const prerender = true
+const { content, menu } = Astro.props
+---
+
+<Docs content={content} menu={menu}>
+  <h1>Hello world A</h1>
+  <Button>A</Button>
+</Docs>
