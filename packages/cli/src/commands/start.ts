@@ -96,7 +96,8 @@ export const startCommand = new Command('start')
   .option('--local', 'Use local Docker image instead of published version')
   .argument('[workspaceId]', 'Workspace ID to serve documentation for')
   .action(async (options) => {
-    const { input, output, local } = options;
+
+    const { input, output, local } = options ?? {};
     // Load user-defined config
     const { config, configPath } = await loadConfig();
 
