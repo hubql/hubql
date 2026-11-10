@@ -1,20 +1,16 @@
 # Hubql
 
-[Hubql](https://www.hubql.com/products) aims to be an Open Source Documentation Platform.
+Hubql is a founder-led product studio: fractional CTO support, product design
+and hands-on engineering for startups — your fullstack team on a subscription.
 
-## Status
+→ [hubql.com](https://www.hubql.com)
 
-Hubql is still under development with currently 4 experimental modules initially:
+## About this repository
 
-**[Hubql Grid](https://www.hubql.com/product/hubql-grid)** to automate documentation generation for LLMs (AI Code Editors)
+This repository previously hosted Hubql's open-source documentation platform
+(Hubql Grid, Client, Ref and Lens). The project is no longer maintained and
+the code has been archived.
 
-**[Hubql Client](https://www.hubql.com/product/api-client)** to test APIs
-
-**[Hubql Ref](https://www.hubql.com/product/api-reference-hosting)** to generate API documentation from your API specifications via framework plugins (Next.JS & Astro)
-
-**[Hubql Lens](https://www.hubql.com/product/api-reference-hosting)** a visualization tool to generate diagrams of your database and API schemas forked from [Schema Visualizer](https://www.schemavisualizer.dev/)
-
-## Community & Support
-
-- [GitHub Issues](https://github.com/hubql/hubql/issues). Best for: bugs and errors you encounter using Hubql.
-- [Discord](https://discord.gg/NjAwH6VkwY). Best for: sharing your applications and hanging out with the community.
+The last version of the code is available at the
+[`archive/2025-03-13`](https://github.com/hubql/hubql/tree/archive/2025-03-13)
+tag, under the Apache 2.0 license.
